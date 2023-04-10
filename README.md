@@ -19,10 +19,10 @@ Exame Final de Frontend III
 
 ```
 # Clone o repositório para o seu computador
-git clone https://github.com/DigitalHouseBrasil/CTD-FE3-Checkpoint2-Template
+git clone https://github.com/freibergerss/checkpoint-frontend.git
 
 # Entre na pasta do projeto
-cd CTD-FE3-Checkpoint2-Template
+cd checkpoint-frontend
 
 # Elimine os links do repositório de DH
 git remote rm origin
