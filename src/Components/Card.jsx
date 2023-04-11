@@ -1,25 +1,46 @@
 import styles from "./Card.module.css";
+import { useEffect, useState } from "react";
+import api from "../services";
 
 const Card = () => {
+
+  const [dentistas, setDentistas] = useState([]);
+
+  async function getDentistas() {
+    try {
+      const response = await api.get("/dentista");
+      setDentistas(response.data);
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    getDentistas()
+  }, []);
 
   return (
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-      <div className={`card`}>
-        <img
-          className="card-img-top"
-          src="/images/doctor.jpg"
-          alt="doctor placeholder"
-        />
-        <div className={`card-body ${styles.CardBody}`}>
-          {/* Na linha seguinte o link deverá utilizar a matricula, nome e sobrenome do dentista
+      {dentistas.map((dentista) => (
+        <div className={`card`}>
+          <img
+            className="card-img-top"
+            src="/images/doctor.jpg"
+            alt="doctor placeholder"
+          />
+          <div className={`card-body ${styles.CardBody}`}>
+            {/* Na linha seguinte o link deverá utilizar a matricula, nome e sobrenome do dentista
           que vem da API */}
-          <a href={`/dentist/MatriculaDoDentista`}>
-            <h5 className={`card-title ${styles.title}`}>Nome e Sobrenome do dentista</h5>
-          </a>
+            <a href={`/dentist/MatriculaDoDentista`}>
+              <h5 className={`card-title ${styles.title}`}>{dentista.nome}</h5>
+              <p className={`card-title ${styles.title}`}>@{dentista.usuario.username}</p>
+            </a>
+          </div>
         </div>
-      </div>
+      ))}
     </>
   );
 };
