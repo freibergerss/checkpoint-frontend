@@ -1,11 +1,22 @@
-import DetailCard from "../Components/DetailCard/DetailCard"
+import { useEffect } from 'react';
+import DetailCard from '../Components/DetailCard/DetailCard';
+import { useNavigate } from 'react-router-dom';
 
 const Detail = () => {
-  return (
-    <>
-      <DetailCard />
-    </>
-  )
-}
+    const navigate = useNavigate();
+    const token = localStorage.getItem('@token');
 
-export default Detail
+    useEffect(() => {
+        if (!token) {
+            navigate('/');
+        }
+    }, []);
+
+    return (
+        <>
+            <DetailCard />
+        </>
+    );
+};
+
+export default Detail;
