@@ -17,6 +17,7 @@ const LoginForm = () => {
                 username,
                 password,
             });
+            console.log("no login");
             saveUser(response.data.username);
             saveToken(response.data.token);
             navigate('/home');
