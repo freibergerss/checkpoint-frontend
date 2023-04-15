@@ -12,9 +12,9 @@ function App() {
       <BaseTemplate>
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/detail" element={<Detail />} />
-            <Route path="/login" element={<Login />} />
             {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar a classe dark ou light */}
           </Routes>
