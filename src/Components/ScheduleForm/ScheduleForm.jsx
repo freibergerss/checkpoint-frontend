@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './ScheduleForm.module.css';
-import api from '../services/index';
+import api from '../../services/index';
 
 const ScheduleForm = () => {
     useEffect(() => {
