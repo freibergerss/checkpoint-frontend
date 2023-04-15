@@ -1,18 +1,23 @@
+import { useEffect } from "react";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/global-context";
+
 const token = localStorage.getItem("@token");
 
+
 const Navbar = () => {
-  const navigate = useNavigate();
-
+  const { removeUserStorage } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const token = localStorage.getItem('@token')
+  function loginLogout() {
     if (token) {
-      localStorage.removeItem("@token");
-      navigate("/login");
-
-    } else {
-      navigate("/login")
+     removeUserStorage();
     }
-  
+    navigate('/login')
+  }
+
 
   return (
     <header className="sticky-top">
@@ -61,7 +66,7 @@ const Navbar = () => {
                   Login
                 </a> */}
 
-                <button className="nav-link" onClick={Navbar}>
+                <button className="nav-link" onClick={() => loginLogout()}>
                   {token ? "Logout" : "Login"}
                 </button>
 

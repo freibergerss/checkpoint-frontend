@@ -17,12 +17,14 @@ const AuthProvider = ({ children }) => {
 
   }
 
-  // function removeUserStorage(){
-  //   localStorage.removeItem("@name_user", "@surname_user", "@token")
-  // }
+  function removeUserStorage(){
+    localStorage.removeItem("@username", "@token");
+    localStorage.removeItem("@token")
+
+  }
 
   return (
-    <AuthContext.Provider value={{username, token, saveUser, theme, setTheme, saveToken}}>
+    <AuthContext.Provider value={{username, token, saveUser, theme, setTheme, saveToken, removeUserStorage}}>
       {children}
     </AuthContext.Provider>
   );
