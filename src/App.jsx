@@ -12,6 +12,7 @@ function App() {
       <BaseTemplate>
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<Login />} />
             <Route path="/home" element={<Home />} />
             <Route path="/detail/:id" element={<Detail />} />
             <Route path="/login" element={<Login />} />
