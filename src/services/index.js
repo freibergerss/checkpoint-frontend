@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://dhodonto.ctdprojetos.com.br/',
-});
+    baseURL: "https://dhodonto.ctdprojetos.com.br/",
+})
 
 export default api;

@@ -13,8 +13,9 @@ function App() {
       <BaseTemplate>
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<Login />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/detail" element={<Detail />} />
+            <Route path="/detail/:id" element={<Detail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/queries" element={<Queries />} />
             {/* //Na linha seguinte deverá ser feito um teste se a aplicação
