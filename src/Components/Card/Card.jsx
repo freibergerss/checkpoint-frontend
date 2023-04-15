@@ -3,36 +3,34 @@ import { useEffect, useState } from "react";
 import api from "../../services";
 
 const Card = () => {
+    const [dentistas, setDentistas] = useState([]);
 
-  const [dentistas, setDentistas] = useState([]);
-
-  async function getDentistas() {
-    try {
-      const response = await api.get("/dentista");
-      setDentistas(response.data);
-
-    } catch (e) {
-      console.log(e);
+    async function getDentistas() {
+        try {
+            const response = await api.get('/dentista');
+            setDentistas(response.data);
+        } catch (e) {
+            console.log(e);
+        }
     }
-  }
 
-  useEffect(() => {
-    getDentistas()
-  }, []);
-
-  return (
-    <>
-      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
+    useEffect(() => {
+        getDentistas();
+    }, []);
+    const id = '';
+    return (
+        <>
+            {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-      {dentistas.map((dentista) => (
-        <div className={`card`}>
-          <img
-            className="card-img-top"
-            src="/images/doctor.jpg"
-            alt="doctor placeholder"
-          />
-          <div className={`card-body ${styles.CardBody}`}>
-            {/* Na linha seguinte o link deverá utilizar a matricula, nome e sobrenome do dentista
+            {dentistas.map(dentista => (
+                <div className={`card`}>
+                    <img
+                        className="card-img-top"
+                        src="/images/doctor.jpg"
+                        alt="doctor placeholder"
+                    />
+                    <div className={`card-body ${styles.CardBody}`}>
+                        {/* Na linha seguinte o link deverá utilizar a matricula, nome e sobrenome do dentista
           que vem da API */}
 
             <a href={`/detail/${dentista.matricula}`}>
