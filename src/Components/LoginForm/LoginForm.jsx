@@ -1,7 +1,7 @@
-import styles from "./Form.module.css";
-import api from "../services/index";
+import styles from "./LoginForm.module.css"
+import api from "../../services/index"
 import { useContext, useState } from "react";
-import { AuthContext } from "../context/global-context";
+import { AuthContext } from "../../context/global-context";
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
@@ -17,6 +17,7 @@ const LoginForm = () => {
                 username,
                 password,
             });
+            console.log("no login");
             saveUser(response.data.username);
             saveToken(response.data.token);
             navigate('/home');

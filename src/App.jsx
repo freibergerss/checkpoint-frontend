@@ -10,8 +10,8 @@ import Queries from "./Routes/Queries";
 function App() {
   return (
     <AuthProvider>
-      <BaseTemplate>
         <BrowserRouter>
+      <BaseTemplate>
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/home" element={<Home />} />
@@ -21,8 +21,8 @@ function App() {
             {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar a classe dark ou light */}
           </Routes>
-        </BrowserRouter>
       </BaseTemplate>
+        </BrowserRouter>
     </AuthProvider>
   );
 }

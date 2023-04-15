@@ -1,6 +1,18 @@
 import styles from "./Navbar.module.css";
+import { useNavigate } from "react-router-dom";
+const token = localStorage.getItem("@token");
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+    if (token) {
+      localStorage.removeItem("@token");
+      navigate("/login");
+
+    } else {
+      navigate("/login")
+    }
+  
 
   return (
     <header className="sticky-top">
@@ -45,9 +57,16 @@ const Navbar = () => {
                 ao formulário de login
                 O botão de logout deverá ser testado darkmode
                 se sim, btn-dark, se não, btn-light */}
-                <a className="nav-link" href="/login">
+                {/* <a className="nav-link" href="/login">
                   Login
-                </a>
+                </a> */}
+
+                <button className="nav-link" onClick={Navbar}>
+                  {token ? "Logout" : "Login"}
+                </button>
+
+
+
               </li>
               <li className={`nav-item`}>
                 {/* Ao ser clicado, esse botão mudará a aplicação para dark mode ou light mode.

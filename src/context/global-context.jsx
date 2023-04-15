@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
 
   function saveUser(username) {
     setUsername(username);
-    localStorage.setItem("@nameuser", username);
+    localStorage.setItem("@username", username);
   }
 
   function saveToken(token) {
