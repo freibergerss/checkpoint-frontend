@@ -8,7 +8,8 @@ const LoginForm = () => {
   const navigate = useNavigate()
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const {saveUser, saveToken} = useContext(AuthContext)
+  const {saveUser, saveToken, theme} = useContext(AuthContext)
+
   async function handleSubmit (e) {
 
         e.preventDefault();
@@ -31,7 +32,7 @@ const LoginForm = () => {
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
       <div
-        className={`text-center card container ${styles.card}`}
+        className={`text-center card container ${styles.card} ${theme === 'light' ? styles.card : styles.cardDark}`}
       >
         <div className={`card-body ${styles.CardBody}`}>
           <form>
