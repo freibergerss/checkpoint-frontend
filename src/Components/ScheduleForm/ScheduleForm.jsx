@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import styles from './ScheduleForm.module.css';
 import api from '../../services/index';
+import { AuthContext } from '../../context/global-context';
 
 const ScheduleForm = () => {
+
+    const {setToken} = useContext(AuthContext)
+
   useEffect(() => {
     getData();
     getToken();
@@ -10,7 +14,6 @@ const ScheduleForm = () => {
 
   const [paciente, setPaciente] = useState([]);
   const [dentista, setDentista] = useState([]);
-  const [token, setToken] = useState('');
 
   async function getData() {
     try {
