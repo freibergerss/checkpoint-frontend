@@ -4,49 +4,39 @@ import api from '../../services/index';
 import { AuthContext } from '../../context/global-context';
 
 const ScheduleForm = () => {
-
-    const {setToken, theme} = useContext(AuthContext)
-
   useEffect(() => {
     getData();
-    getToken();
   }, []);
 
-  const [paciente, setPaciente] = useState([]);
-  const [dentista, setDentista] = useState([]);
+  const { setToken, theme } = useContext(AuthContext)
+
+  const [pacienteDB, setPacienteDB] = useState([]);
+  const [dentistaDB, setDentistaDB] = useState([]);
+  const [paciente, setPaciente] = useState({});
+  const [dentista, setDentista] = useState({});
+  const [date, setDate] = useState('');
 
   async function getData() {
     try {
       const response = await api.get('/paciente', {});
-      setPaciente(response.data.body);
+      setPacienteDB(response.data.body);
       const response2 = await api.get('/dentista', {});
-      setDentista(response2.data);
+      setDentistaDB(response2.data);
     } catch (error) {
       console.log(error);
     }
   }
 
-  function getToken() {
-    const tokenStore = localStorage.getItem('@token');
-    if (tokenStore === '') {
-      console.log('Sem o token');
-    }
-    setToken(tokenStore);
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
+    console.log(dentista);
+    console.log(paciente);
     try {
-      const response = await api.post('/paciente', {
-        paciente,
-        dentista,
-      },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("@token")}`,
-          }
-        },);
-      setPaciente(response.data);
+      await api.post('/consulta', {
+        'paciente': paciente,
+        'dentista': dentista,
+        'dataHoraAgendamento': date,
+      });
       alert('Consulta marcada');
     } catch (error) {
       console.log(error);
@@ -57,24 +47,24 @@ const ScheduleForm = () => {
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-      {console.log(paciente)}
       <div className={`text-center container} ${theme === 'light' ? '' : styles.darkCard}`}>
         <form onSubmit={handleSubmit}>
           <div className={`row ${styles.rowSpacing}`}>
             <div className="col-sm-12 col-lg-6">
               <label htmlFor="dentist" className="form-label">
-                Dentist
+                Dentista
               </label>
               <select
                 className="form-select"
                 name="dentist"
                 id="dentist"
+                onChange={e =>
+                  setDentista(dentistaDB[e.target.value])
+                }
               >
-                {dentista.map(dados => (
-                  <option
-                    key={dados.matricula}
-                    value={dados.matricula}
-                  >
+                <option>Selecione um dentista</option>
+                {dentistaDB.map((dados, index) => (
+                  <option key={dados.matricula} value={index}>
                     {`${dados.nome} ${dados.sobrenome}`}
                   </option>
                 ))}
@@ -82,18 +72,19 @@ const ScheduleForm = () => {
             </div>
             <div className="col-sm-12 col-lg-6">
               <label htmlFor="patient" className="form-label">
-                Patient
+                Paciente
               </label>
               <select
                 className="form-select"
                 name="patient"
                 id="patient"
+                onChange={e =>
+                  setPaciente(pacienteDB[e.target.value])
+                }
               >
-                {paciente.map(dado => (
-                  <option
-                    key={dado.matricula}
-                    value={dado.matricula}
-                  >
+                <option>Selecione um paciente</option>
+                {pacienteDB.map((dado, index) => (
+                  <option key={dado.matricula} value={index}>
                     {`${dado.nome} ${dado.sobrenome}`}
                   </option>
                 ))}
@@ -106,14 +97,17 @@ const ScheduleForm = () => {
                 htmlFor="appointmentDate"
                 className="form-label"
               >
-                Date
+                Data
               </label>
               <input
                 className="form-control"
                 id="appointmentDate"
                 name="appointmentDate"
                 type="datetime-local"
+                value={date}
+                onChange={e => setDate(e.target.value)}
               />
+              <label htmlFor="appointmentDate">Por favor selecionar uma data posterior a data de hoje.</label>
             </div>
           </div>
           <div className={`row ${styles.rowSpacing}`}>
@@ -123,7 +117,7 @@ const ScheduleForm = () => {
               className={`btn btn-light ${styles.button} ${theme === 'light' ? '' : 'dark'}`}
               type="submit"
             >
-              Schedule
+              Marcar consulta
             </button>
           </div>
         </form>
