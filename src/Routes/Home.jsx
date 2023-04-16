@@ -1,10 +1,7 @@
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import Card from "../Components/Card/Card";
-import { AuthContext } from "../context/global-context";
 
 const Home = () => {
-
-  const { theme } = useContext(AuthContext)
 
   useEffect(() => {
     //Nesse useEffect, deverá ser obtido todos os dentistas da API
