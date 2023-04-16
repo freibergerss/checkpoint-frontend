@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import QuerieCard from '../../src/Components/QuerieCard';
 import api from '../../src/services/index';
+import { useNavigate } from 'react-router-dom';
 
 export default function Queries() {
     const [data, setdata] = useState([]);
+    const navigate = useNavigate();
+    const token = localStorage.getItem('@token');
 
     async function get() {
         try {
@@ -16,6 +19,9 @@ export default function Queries() {
 
     useEffect(() => {
         get();
+        if (!token) {
+            navigate('/');
+        }
     }, []);
 
     return (
