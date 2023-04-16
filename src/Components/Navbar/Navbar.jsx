@@ -1,21 +1,22 @@
-import { useEffect } from "react";
 import styles from "./Navbar.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/global-context";
 
-const token = localStorage.getItem("@token");
-
-
 const Navbar = () => {
-  const { removeUserStorage } = useContext(AuthContext)
+  const { removeUserStorage, theme, setTheme } = useContext(AuthContext)
   const navigate = useNavigate()
   const token = localStorage.getItem('@token')
+ 
   function loginLogout() {
     if (token) {
      removeUserStorage();
     }
     navigate('/login')
+  }
+
+  function changeTheme() {
+    theme === 'light' ? setTheme('dark') : setTheme('light')
   }
 
 
@@ -24,14 +25,14 @@ const Navbar = () => {
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar navbar-dark bg-dark ou navbar-light bg-light*/}
       <nav
-        className={`navbar navbar-expand-sm navbar-light bg-light`}
+        className={`navbar navbar-expand-sm ${theme === 'light' ? 'bg-light navbar-light' : 'bg-dark navbar-dark'}`}
         aria-label="Third navbar example"
       >
         <div className="container">
           {/* Ao clicar, o usuário deve ser redirecionado a home, com react-router */}
-          <a className={`navbar-brand ${styles.navbarBrand}`} href="/home">
+          <Link className={`navbar-brand ${styles.navbarBrand}`} to={'/home'}>
             DH Odonto
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -51,11 +52,11 @@ const Navbar = () => {
             <ul className="navbar-nav mb-2 mb-sm-0">
               <li className={`nav-item ${styles.navBarLink}`}>
                 {/* Ao clicar, o usuário deve ser redirecionado a home, com react-router */}
-                <a className="nav-link" href="/home">
+                <Link to={'/home'} className={`nav-link `}>
                   Home
-                </a>
+                </Link>
               </li>
-              <li className={`nav-item ${styles.navBarLink}`}>
+              <li className={`nav-item ${styles.navBarLink} `}>
                 {/* Se o usuário estiver logado, deverá aparecer um botão de logout
                 que vai apagar o token do localstorage.
                 Se o usuário estiver deslogado, um link fará um redirecionamento, com react-router,
@@ -66,7 +67,7 @@ const Navbar = () => {
                   Login
                 </a> */}
 
-                <button className="nav-link" onClick={() => loginLogout()}>
+                <button className={`nav-link ${theme === 'light' ? 'btn-light' : 'dark'}`} onClick={() => loginLogout()}>
                   {token ? "Logout" : "Login"}
                 </button>
 
@@ -79,10 +80,10 @@ const Navbar = () => {
                  Na linha seguinte deverá ser feito um teste se a aplicação
                  está em dark mode e deverá utilizar o icone ☀ ou 🌙 e btn-dark ou btn-light*/}
                 <button
-                  className={`btn btn-light${styles.btnStyle
-                    }`}
+                  className={`btn ${styles.btnStyle} ${theme === 'light' ? 'btn-light' : 'btn-dark'}`} 
+                  onClick={() => changeTheme()}
                 >
-                  ☀ 🌙{" "}
+                 {theme === 'light' ? '☀' : '🌙'}
                 </button>
               </li>
             </ul>

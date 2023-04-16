@@ -5,7 +5,7 @@ export const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
   const [username, setUsername] = useState("");
   const [theme, setTheme] = useState("light");
-  const [token] = useState("");
+  const [token, setToken] = useState("");
 
   function saveUser(username) {
     setUsername(username);
@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{username, token, saveUser, theme, setTheme, saveToken, removeUserStorage}}>
+    <AuthContext.Provider value={{username, token, setToken, saveUser, theme, setTheme, saveToken, removeUserStorage}}>
       {children}
     </AuthContext.Provider>
   );
