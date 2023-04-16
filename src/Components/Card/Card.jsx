@@ -1,9 +1,12 @@
 import styles from "./Card.module.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import api from "../../services";
+import { AuthContext } from "../../context/global-context";
+import { Link } from "react-router-dom";
 
 const Card = () => {
     const [dentistas, setDentistas] = useState([]);
+    const { theme } = useContext(AuthContext)
 
     async function getDentistas() {
         try {
@@ -17,13 +20,13 @@ const Card = () => {
     useEffect(() => {
         getDentistas();
     }, []);
-    const id = '';
+
     return (
         <>
             {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
             {dentistas.map(dentista => (
-                <div className={`card`}>
+                <div className={`card ${theme === 'light' ? styles.card : styles.cardDark}`} key={dentista.matricula}>
                     <img
                         className="card-img-top"
                         src="/images/doctor.jpg"
@@ -33,10 +36,10 @@ const Card = () => {
                         {/* Na linha seguinte o link deverá utilizar a matricula, nome e sobrenome do dentista
           que vem da API */}
 
-            <a href={`/detail/${dentista.matricula}`}>
+            <Link to={`/detail/${dentista.matricula}`}>
               <h5 className={`card-title ${styles.title}`}>{dentista.nome}</h5>
-              <p className={`card-title ${styles.title}`}>@{dentista.usuario.username}</p>
-            </a>
+              <p className={`card-title ${styles.title} ${theme === 'light' ? '' : styles.usernameDark}`}>@{dentista.usuario.username}</p>
+            </Link>
           </div>
         </div>
       ))}
