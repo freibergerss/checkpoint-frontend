@@ -1,14 +1,11 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './ScheduleForm.module.css';
 import api from '../../services/index';
-import { AuthContext } from '../../context/global-context';
 
 const ScheduleForm = () => {
   useEffect(() => {
     getData();
   }, []);
-
-  const { setToken, theme } = useContext(AuthContext)
 
   const [pacienteDB, setPacienteDB] = useState([]);
   const [dentistaDB, setDentistaDB] = useState([]);
@@ -43,11 +40,11 @@ const ScheduleForm = () => {
       alert('Erro ao marcar consulta');
     }
   }
+
   return (
     <>
-      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
-      <div className={`text-center container} ${theme === 'light' ? '' : styles.darkCard}`}>
+
+      <div className={`text-center container}`}>
         <form onSubmit={handleSubmit}>
           <div className={`row ${styles.rowSpacing}`}>
             <div className="col-sm-12 col-lg-6">
@@ -114,7 +111,7 @@ const ScheduleForm = () => {
             {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
             <button
-              className={`btn btn-light ${styles.button} ${theme === 'light' ? '' : 'dark'}`}
+              className={`btn btn-light ${styles.button}`}
               type="submit"
             >
               Marcar consulta
