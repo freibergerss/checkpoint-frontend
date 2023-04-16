@@ -16,21 +16,15 @@ jest.mock("../../../services", () => ({
 }));
 
 describe("renders LoginForm component", () => {
-  render(
-    <BrowserRouter>
-      <LoginForm />
-    </BrowserRouter>
-  );
+  render(<LoginForm />, { wrapper: BrowserRouter });
   test("should login field exist", () => {
     expect(screen.getByPlaceholderText("Login")).toBeInTheDocument();
   });
 
   test("handleSubmit is called with correct arguments and performs expected actions", async () => {
-    const { getByText, getByPlaceholderText } = render(
-      <BrowserRouter>
-        <LoginForm />
-      </BrowserRouter>
-    );
+    const { getByText, getByPlaceholderText } = render(<LoginForm />, {
+      wrapper: BrowserRouter,
+    });
     const usernameInput = getByPlaceholderText("Login");
     const passwordInput = getByPlaceholderText("Password");
     const button = getByText("Send");
