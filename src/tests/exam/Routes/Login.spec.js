@@ -4,10 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import Login from "../../../Routes/Login";
 
 test("should show login form", () => {
-  render(
-    <BrowserRouter>
-      <Login />
-    </BrowserRouter>
-  );
+  render(<Login />, { wrapper: BrowserRouter });
   expect(screen.getByText("Login")).toBeInTheDocument();
 });

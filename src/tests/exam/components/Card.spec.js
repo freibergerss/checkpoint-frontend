@@ -14,19 +14,11 @@ jest.mock("../../../services", () => ({
 
 describe("test Card component ", () => {
   test("renders Card component", () => {
-    render(
-      <BrowserRouter>
-        <Card />
-      </BrowserRouter>
-    );
+    render(<Card />, { wrapper: BrowserRouter });
   });
   test("calls api.get with correct URL", async () => {
     const mockApiGet = jest.spyOn(api, "get");
-    render(
-      <BrowserRouter>
-        <Card />
-      </BrowserRouter>
-    );
+    render(<Card />, { wrapper: BrowserRouter });
     await waitFor(() => expect(mockApiGet).toHaveBeenCalledWith("/dentista"));
   });
 
@@ -39,11 +31,7 @@ describe("test Card component ", () => {
       },
     ];
     jest.spyOn(api, "get").mockResolvedValueOnce({ data: mockData });
-    const { findByText } = render(
-      <BrowserRouter>
-        <Card />
-      </BrowserRouter>
-    );
+    const { findByText } = render(<Card />, { wrapper: BrowserRouter });
     expect(await findByText(mockData[0].nome)).toBeInTheDocument();
     expect(
       await findByText(`@${mockData[0].usuario.username}`)

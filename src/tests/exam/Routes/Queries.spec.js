@@ -13,10 +13,10 @@ jest.mock("../../../services", () => ({
 }));
 
 describe(" render Queries component ", () => {
-  render(<Queries />, {wrapper: BrowserRouter});
+  render(<Queries />, { wrapper: BrowserRouter });
   test("calls api.get with correct URL", () => {
     const mockApiGet = jest.spyOn(api, "get");
-    render(<Queries />, {wrapper: BrowserRouter});
+    render(<Queries />, { wrapper: BrowserRouter });
     expect(mockApiGet).toHaveBeenCalledWith("/consulta");
   });
 });
