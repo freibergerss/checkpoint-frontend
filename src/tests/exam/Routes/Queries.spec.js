@@ -20,7 +20,11 @@ describe(" render Queries component ", () => {
   );
   test("calls api.get with correct URL", () => {
     const mockApiGet = jest.spyOn(api, "get");
-    render(<Queries />);
+    render(
+      <BrowserRouter>
+        <Queries />
+      </BrowserRouter>
+    );
     expect(mockApiGet).toHaveBeenCalledWith("/consulta");
   });
 });
